@@ -4,6 +4,7 @@ all: opam-lib opam opam-admin opam-installer
 	@
 
 ALWAYS:
+	ocaml os_type.ml
 	@
 
 opam-lib opam opam-admin opam-installer all: ALWAYS

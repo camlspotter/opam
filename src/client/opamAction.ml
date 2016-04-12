@@ -73,6 +73,8 @@ let install_package t nv =
               | None   -> OpamFilename.create dst_dir (OpamFilename.basename src_file)
               | Some d -> OpamFilename.create dst_dir d in
             if check ~src:build_dir ~dst:dst_dir base then
+              let src_file = if not exec || OpamFilename.exists src_file then src_file else OpamFilename.opamingw_fix src_file in
+              let dst_file = if not exec then dst_file else OpamFilename.opamingw_fix dst_file in
               OpamFilename.install ~exec ~src:src_file ~dst:dst_file ();
           ) files in
 

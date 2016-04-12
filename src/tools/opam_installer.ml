@@ -54,6 +54,8 @@ let do_commands project_root =
       OpamGlobals.warning "Directory %S is not empty\n" (OpamFilename.Dir.to_string d)
   in
   let cp ?exec ~opt ~src ~dst () =
+    let src = if exec <> Some true || OpamFilename.exists src then src else OpamFilename.opamingw_fix src in
+    let dst = if exec <> Some true then dst else OpamFilename.opamingw_fix dst in
     if OpamFilename.exists src then
       (mkdir (OpamFilename.dirname dst);
        OpamGlobals.msg "%-32s => %s\n"
