@@ -275,4 +275,9 @@ end
 (** Convert a filename to an attribute, relatively to a root *)
 val to_attribute: Dir.t -> t -> Attribute.t
 
+(* "a.exe" => "a", ".exe"
+   "abc" => "abc", ""
+*)
+val split_extension : string -> string * string
+
 val opamingw_fix : t -> t

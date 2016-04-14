@@ -451,24 +451,21 @@ let to_attribute root file =
   let digest = digest file in
   Attribute.create basename digest perm
 
+let split_extension s = 
+  try
+    let body = Filename.chop_extension s in
+    body, 
+    String.sub s 
+      (String.length body) 
+      (String.length s - String.length body)
+  with
+  | Invalid_argument _ -> s, ""
+
 let opamingw_fix p =
   Format.eprintf "CPX: %s =>@." (to_string p);
-  let split_extension s = 
-    try
-      let body = Filename.chop_extension s in
-      body, 
-      String.sub s 
-        (String.length body) 
-        (String.length s - String.length body)
-    with
-    | Invalid_argument _ -> s, ""
+  let p = match split_extension (to_string p) with
+    | _, ".exe" -> p
+    | _ -> add_extension p "exe"
   in
-    let p = 
-      begin match split_extension (to_string p) with
-      | _, ".exe" -> p
-      | _ -> add_extension p "exe"
-      end
-    in
-    Format.eprintf "=> %s@." (to_string p);
-    p
-    
+  Format.eprintf "=> %s@." (to_string p);
+  p

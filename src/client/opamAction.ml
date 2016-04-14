@@ -75,6 +75,10 @@ let install_package t nv =
             if check ~src:build_dir ~dst:dst_dir base then
               let src_file = if not exec || OpamFilename.exists src_file then src_file else OpamFilename.opamingw_fix src_file in
               let dst_file = if not exec then dst_file else OpamFilename.opamingw_fix dst_file in
+	      let exec = match OpamFilename.split_extension (OpamFilename.to_string dst_file) with
+	        | _, ".cmxs" -> true
+                | _ -> exec
+              in
               OpamFilename.install ~exec ~src:src_file ~dst:dst_file ();
           ) files in
 

@@ -61,7 +61,11 @@ let do_commands project_root =
        OpamGlobals.msg "%-32s => %s\n"
          (OpamFilename.remove_prefix project_root src)
          (OpamFilename.to_string dst);
-       OpamFilename.install ?exec ~src ~dst ())
+      let exec = match OpamFilename.split_extension (OpamFilename.to_string dst) with
+        | _, ".cmxs" -> Some true
+        | _ -> exec
+      in
+      OpamFilename.install ?exec ~src ~dst ())
     else if not opt then
       OpamGlobals.error "Could not find %S" (OpamFilename.to_string src)
   in
