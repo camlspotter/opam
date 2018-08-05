@@ -8,11 +8,7 @@ src_ext/extlib/
 src_ext/re/
 src_ext/graph/
 src_ext/*.stamp
-src_ext/*.tbz
-src_ext/*.tar.gz
-*.tar.bz2
 *.annot
-*.tar.gz
 *~
 .#*
 ocp-build.root

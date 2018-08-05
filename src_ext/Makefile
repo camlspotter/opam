@@ -228,5 +228,9 @@ endif
 %:
 	$(MAKE) -f $(OCAMLMAKEFILE) subprojs SUBTARGET=$@
 
+OCAMLFLAGS=-unsafe-string
+export OCAMLFLAGS
+
 OCAMLMAKEFILE = ../OCamlMakefile
 export OCAMLMAKEFILE
+
